@@ -1,6 +1,6 @@
 # DJO Ride - Corporate Airport Transfer Platform
 
-## Intro
+## Introduction
 A modern, responsive web application for corporate airport transfer services. Built for businesses to easily book reliable transportation with multi-currency support and real-time pricing.
 
 ## Features
