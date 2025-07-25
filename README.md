@@ -31,12 +31,12 @@ npm or yarn
 
 1. Clone the repository:
 ``` bash
-git clone <repository-url>
+git clone https://github.com/teraforgedigitallab/djoride.git
 ```
 
 2. Navigate to the project directory:
 ```bash
-cd djo-ride
+cd djoride
 ```
 
 3. Install dependencies:
@@ -44,17 +44,7 @@ cd djo-ride
 npm install
 ```
 
-4. Navigate to the project directory:
-```bash
-cd djo-ride
-```
-
-5. Install dependencies
-```bash
-npm install
-```
-
-6. Start development server
+4. Start development server
 ``` bash
 npm run dev
 ```
@@ -62,8 +52,6 @@ npm run dev
 ## Open browser at http://localhost:5173
 
 ## Build for production
+``` bash
 npm run build
-
-
-
 ```
