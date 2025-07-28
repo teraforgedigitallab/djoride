@@ -24,22 +24,28 @@ const Book = () => {
 
     useEffect(() => {
         if (selectedCity) {
-            const cityData = data.pricing.find(item =>
-                item.city === selectedCity.city && item.state === selectedCity.state
-            );
+            // Find the country data first
+            const countryData = data.pricing.find(item => item.country === selectedCity.country);
+            
+            if (countryData) {
+                // Find the city data within the country's states
+                const cityData = countryData.states.find(item =>
+                    item.city === selectedCity.city && item.state === selectedCity.state
+                );
 
-            if (cityData) {
-                const models = [];
-                Object.entries(cityData.pricing).forEach(([modelName, modelPricing]) => {
-                    const modelInfo = data.categories.find(category => category.model === modelName);
-                    if (modelInfo) {
-                        models.push({
-                            ...modelInfo,
-                            pricing: modelPricing
-                        });
-                    }
-                });
-                setAvailableModels(models);
+                if (cityData) {
+                    const models = [];
+                    Object.entries(cityData.pricing).forEach(([modelName, modelPricing]) => {
+                        const modelInfo = data.categories.find(category => category.model === modelName);
+                        if (modelInfo) {
+                            models.push({
+                                ...modelInfo,
+                                pricing: modelPricing
+                            });
+                        }
+                    });
+                    setAvailableModels(models);
+                }
             }
         }
     }, [selectedCity]);
@@ -137,7 +143,7 @@ const Book = () => {
                         >
                             <div>
                                 <h1 className="text-lg md:text-xl font-bold text-primary">{selectedCity.city}, {selectedCity.state}</h1>
-                                <p className="text-xs text-gray-600">Select your preferred car</p>
+                                <p className="text-xs text-gray-600">{selectedCity.country} - Select your preferred car</p>
                             </div>
                             <motion.button
                                 onClick={() => setSelectedCity(null)}
@@ -146,7 +152,7 @@ const Book = () => {
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <ArrowLeft className="h-3.5 w-3.5 mr-1" />
-                                Change City
+                                Change Location
                             </motion.button>
                         </motion.div>
 
@@ -217,6 +223,8 @@ const Book = () => {
                                     pricing={model.pricing}
                                     onSelect={handleCabSelect}
                                     currentSelection={selectedCab}
+                                    exArrival={model.exArrival}
+                                    exDeparture={model.exDeparture}
                                 />
                             ))}
                         </div>

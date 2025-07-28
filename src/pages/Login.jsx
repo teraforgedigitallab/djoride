@@ -60,7 +60,7 @@ const Login = () => {
                         autoComplete="email"
                     />
                     {/* Password field with show/hide */}
-                    {/* <div className="relative">
+                    <div className="relative">
                         <InputField
                             id="password"
                             label="Password"
@@ -78,7 +78,7 @@ const Login = () => {
                         >
                             {showPassword ? <EyeClosed size={18} /> : <Eye size={18} />}
                         </button>
-                    </div> */}
+                    </div>
 
                     <div className="flex items-center justify-between flex-wrap gap-2">
                         <div className="flex items-center">

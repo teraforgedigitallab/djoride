@@ -4,6 +4,8 @@
             "model": "Sedan",
             "carType": "Dzire/ Amaze or Similar",
             "image": "/images/car-models/sedan.jpg",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 4,
             "luggage": 2,
             "handbag": 2,
@@ -18,6 +20,8 @@
             "model": "Sedan +",
             "carType": "Ciaz/ Honda City or Similar",
             "image": "/images/car-models/sedan+.jpg",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 4,
             "luggage": 2,
             "handbag": 3,
@@ -33,6 +37,8 @@
             "model": "MUV",
             "carType": "Ertiga or Similar",
             "image": "/images/car-models/muv.jpg",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 6,
             "luggage": 3,
             "handbag": 3,
@@ -48,6 +54,8 @@
             "model": "SUV",
             "carType": "Innova Crysta or Similar",
             "image": "/images/car-models/suv.jpg",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 6,
             "luggage": 4,
             "handbag": 4,
@@ -63,6 +71,8 @@
             "model": "Sedan - Luxury",
             "carType": "Altis",
             "image": "/images/car-models/sedanluxury.png",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 4,
             "luggage": 2,
             "handbag": 3,
@@ -78,6 +88,8 @@
             "model": "SUV +",
             "carType": "BYD/ Hycross",
             "image": "/images/car-models/suv+.jpg",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 6,
             "luggage": 4,
             "handbag": 4,
@@ -93,6 +105,8 @@
             "model": "Luxury",
             "carType": "Camry / Fortuner",
             "image": "/images/car-models/luxury.jpg",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 6,
             "luggage": 4,
             "handbag": 5,
@@ -108,6 +122,8 @@
             "model": "Luxury +",
             "carType": "E - Class",
             "image": "/images/car-models/luxury+.jpg",
+            "exArrival": "60 Mins",
+            "exDeparture": "15 Mins",
             "capacity": 4,
             "luggage": 3,
             "handbag": 3,
@@ -122,9 +138,12 @@
     ],
     "pricing": [
         {
-            "state": "NCR",
-            "city": "Delhi",
-            "pricing": {
+            "country": "India",
+            "states": [
+                {
+                    "state": "NCR",
+                    "city": "Delhi",
+                    "pricing": {
                 "Sedan": {
                     "4hr40km": 13,
                     "8hr80km": 20,
@@ -735,6 +754,150 @@
                     "airport": 95
                 }
             }
+        }
+            ]
+        },
+        {
+            "country": "UAE",
+            "states": [
+                {
+                    "state": "Dubai",
+                    "city": "Dubai",
+                    "pricing": {
+                        "Sedan": {
+                            "4hr40km": 25,
+                            "8hr80km": 45,
+                            "airport": 30
+                        },
+                        "Sedan +": {
+                            "4hr40km": 35,
+                            "8hr80km": 60,
+                            "airport": 40
+                        },
+                        "SUV": {
+                            "4hr40km": 45,
+                            "8hr80km": 75,
+                            "airport": 50
+                        },
+                        "Luxury": {
+                            "4hr40km": 80,
+                            "8hr80km": 120,
+                            "airport": 90
+                        }
+                    }
+                },
+                {
+                    "state": "Abu Dhabi",
+                    "city": "Abu Dhabi",
+                    "pricing": {
+                        "Sedan": {
+                            "4hr40km": 28,
+                            "8hr80km": 48,
+                            "airport": 32
+                        },
+                        "Sedan +": {
+                            "4hr40km": 38,
+                            "8hr80km": 65,
+                            "airport": 42
+                        },
+                        "SUV": {
+                            "4hr40km": 48,
+                            "8hr80km": 80,
+                            "airport": 55
+                        },
+                        "Luxury": {
+                            "4hr40km": 85,
+                            "8hr80km": 130,
+                            "airport": 95
+                        }
+                    }
+                },
+                {
+                    "state": "Sharjah",
+                    "city": "Sharjah",
+                    "pricing": {
+                        "Sedan": {
+                            "4hr40km": 22,
+                            "8hr80km": 40,
+                            "airport": 28
+                        },
+                        "Sedan +": {
+                            "4hr40km": 32,
+                            "8hr80km": 55,
+                            "airport": 38
+                        },
+                        "SUV": {
+                            "4hr40km": 42,
+                            "8hr80km": 70,
+                            "airport": 48
+                        },
+                        "Luxury": {
+                            "4hr40km": 75,
+                            "8hr80km": 115,
+                            "airport": 85
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "country": "USA"
+        },
+        {
+            "country": "Canada"
+        },
+        {
+            "country": "UK"
+        },
+        {
+            "country": "Australia"
+        }
+    ],
+    "popularCities": [
+        {
+            "name": "Delhi",
+            "image": "/images/top-cities/delhi.jpg",
+            "country": "India"
+        },
+        {
+            "name": "Mumbai",
+            "image": "/images/top-cities/mumbai.jpg",
+            "country": "India"
+        },
+        {
+            "name": "Bengaluru",
+            "image": "/images/top-cities/bengaluru.jpg",
+            "country": "India"
+        },
+        {
+            "name": "Hyderabad",
+            "image": "/images/top-cities/hyderabad.jpg",
+            "country": "India"
+        },
+        {
+            "name": "Chennai",
+            "image": "/images/top-cities/chennai.jpg",
+            "country": "India"
+        },
+        {
+            "name": "Pune",
+            "image": "/images/top-cities/pune.jpg",
+            "country": "India"
+        },
+        {
+            "name": "Dubai",
+            "image": "/images/top-cities/dubai.jpg",
+            "country": "UAE"
+        },
+        {
+            "name": "Abu Dhabi",
+            "image": "/images/top-cities/abu-dhabi.jpg",
+            "country": "UAE"
+        },
+        {
+            "name": "Sharjah",
+            "image": "/images/top-cities/sharjah.jpg",
+            "country": "UAE"
         }
     ]
 }

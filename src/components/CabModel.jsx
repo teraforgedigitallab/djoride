@@ -1,20 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { UserRound, Check, Clock, MapPin, Music, Wind, Gauge, ShieldCheck, Tag, Coffee, Sofa, Umbrella, Car, ChevronDown, Briefcase, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PriceDisplay from './PriceDisplay';
 
-const CabModel = ({ model, carType, capacity, luggage, handbag, image, pricing, features = [], onSelect, currentSelection }) => {
+const CabModel = ({ model, carType, capacity, luggage, handbag, image, pricing, features = [], onSelect, currentSelection, exArrival, exDeparture }) => {
     const [featuresOpen, setFeaturesOpen] = useState(false);
+    // States to track which tooltip is currently shown
+    const [activeTooltip, setActiveTooltip] = useState(null);
+    const tooltipRef = useRef(null);
 
     const handleSelectPackage = (packageType) => {
         const cabInfo = { model, carType, capacity, luggage, handbag, packageType, price: pricing[packageType] };
 
-        // If the user clicks the same package again, deselect it.
         if (currentSelection && currentSelection.model === model && currentSelection.packageType === packageType) {
             onSelect(null);
         } else {
             onSelect(cabInfo);
         }
+    };
+
+    // Handle click outside to close tooltips
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+                setActiveTooltip(null);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
+
+    // Toggle tooltip on click
+    const toggleTooltip = (tooltipName) => {
+        setActiveTooltip(activeTooltip === tooltipName ? null : tooltipName);
     };
 
     const has4h40km = pricing && pricing['4hr40km'] !== undefined && pricing['4hr40km'] > 0;
@@ -70,7 +91,7 @@ const CabModel = ({ model, carType, capacity, luggage, handbag, image, pricing, 
 
     return (
         <motion.div
-            className="bg-white rounded-lg shadow-sm overflow-hidden mb-6 border border-gray-100"
+            className="bg-white rounded-lg shadow-sm overflow-visible mb-6 border border-gray-100"
             variants={cardVariants}
             initial="initial"
             animate="animate"
@@ -121,35 +142,92 @@ const CabModel = ({ model, carType, capacity, luggage, handbag, image, pricing, 
                             >
                                 {carType}
                             </motion.p>
+
                         </div>
 
-                        <div className="flex items-center gap-4 mt-2 md:mt-0">
+                        <div className="flex items-center gap-4 mt-2 md:mt-0" ref={tooltipRef}>
+                            {/* Capacity */}
                             <motion.span
-                                className="inline-flex items-center gap-1 text-sm text-primary mt-1 md:mt-0 bg-primary/10 px-2 py-1 rounded"
+                                className="relative group inline-flex items-center gap-1 text-sm text-primary mt-1 md:mt-0 bg-primary/10 px-2.5 py-1.5 rounded-lg shadow-sm transition-all"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.2, duration: 0.3 }}
+                                onClick={() => toggleTooltip('capacity')}
                             >
-                                <UserRound size={15} />
+                                <UserRound size={16} />
                                 <span>: {capacity || 'N/A'}</span>
+                                <AnimatePresence>
+                                    {(activeTooltip === 'capacity' || false) && (
+                                        <motion.span 
+                                            className="absolute left-1/2 -translate-x-1/2 -top-7 bg-primary text-white text-xs font-semibold rounded-md px-3 py-1 shadow-lg z-20 whitespace-nowrap"
+                                            initial={{ opacity: 0, y: 5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 5 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            Capacity
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                                <span className="absolute left-1/2 -translate-x-1/2 -top-7 opacity-0 group-hover:opacity-100 pointer-events-none bg-primary text-white text-xs font-semibold rounded-md px-3 py-1 shadow-lg transition-all duration-200 z-20 whitespace-nowrap md:block hidden">
+                                    Capacity
+                                </span>
                             </motion.span>
+                            
+                            {/* Luggage */}
                             <motion.span
-                                className="inline-flex items-center gap-1 text-sm text-primary mt-1 md:mt-0 bg-primary/10 px-2 py-1 rounded"
+                                className="relative group inline-flex items-center gap-1 text-sm text-primary mt-1 md:mt-0 bg-primary/10 px-2.5 py-1.5 rounded-lg shadow-sm transition-all"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ delay: 0.2, duration: 0.3 }}
+                                transition={{ delay: 0.22, duration: 0.3 }}
+                                onClick={() => toggleTooltip('luggage')}
                             >
-                                <Briefcase size={15} />
+                                <Briefcase size={16} />
                                 <span>: {luggage || 'N/A'}</span>
+                                <AnimatePresence>
+                                    {(activeTooltip === 'luggage' || false) && (
+                                        <motion.span 
+                                            className="absolute left-1/2 -translate-x-1/2 -top-7 bg-primary text-white text-xs font-semibold rounded-md px-3 py-1 shadow-lg z-20 whitespace-nowrap"
+                                            initial={{ opacity: 0, y: 5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 5 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            Luggage
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                                <span className="absolute left-1/2 -translate-x-1/2 -top-7 opacity-0 group-hover:opacity-100 pointer-events-none bg-primary text-white text-xs font-semibold rounded-md px-3 py-1 shadow-lg transition-all duration-200 z-20 whitespace-nowrap md:block hidden">
+                                    Luggage
+                                </span>
                             </motion.span>
+                            
+                            {/* Handbag */}
                             <motion.span
-                                className="inline-flex items-center gap-1 text-sm text-primary mt-1 md:mt-0 bg-primary/10 px-2 py-1 rounded"
+                                className="relative group inline-flex items-center gap-1 text-sm text-primary mt-1 md:mt-0 bg-primary/10 px-2.5 py-1.5 rounded-lg shadow-sm transition-all"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
-                                transition={{ delay: 0.2, duration: 0.3 }}
+                                transition={{ delay: 0.24, duration: 0.3 }}
+                                onClick={() => toggleTooltip('handbag')}
                             >
-                                <ShoppingBag size={15} />
+                                <ShoppingBag size={16} />
                                 <span>: {handbag || 'N/A'}</span>
+                                <AnimatePresence>
+                                    {(activeTooltip === 'handbag' || false) && (
+                                        <motion.span 
+                                            className="absolute left-1/2 -translate-x-1/2 -top-7 bg-primary text-white text-xs font-semibold rounded-md px-3 py-1 shadow-lg z-20 whitespace-nowrap"
+                                            initial={{ opacity: 0, y: 5 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            exit={{ opacity: 0, y: 5 }}
+                                            transition={{ duration: 0.2 }}
+                                        >
+                                            Handbag
+                                        </motion.span>
+                                    )}
+                                </AnimatePresence>
+                                <span className="absolute left-1/2 -translate-x-1/2 -top-7 opacity-0 group-hover:opacity-100 pointer-events-none bg-primary text-white text-xs font-semibold rounded-md px-3 py-1 shadow-lg transition-all duration-200 z-20 whitespace-nowrap md:block hidden">
+                                    Handbag
+                                </span>
                             </motion.span>
                         </div>
                     </div>
@@ -162,12 +240,24 @@ const CabModel = ({ model, carType, capacity, luggage, handbag, image, pricing, 
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.2, duration: 0.3 }}
                         >
+
+
+                            {/* Wait time statement */}
+                            <motion.p
+                                className="text-xs text-text mb-2 mt-1"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ delay: 0.18, duration: 0.3 }}
+                            >
+                                Wait time for Airport: <span className="font-semibold text-primary">{exArrival}</span> on Arrival, <span className="font-semibold text-primary">{exDeparture}</span> on Departure
+                            </motion.p>
+
                             <details
                                 className="group"
                                 open={featuresOpen}
                                 onToggle={(e) => setFeaturesOpen(e.target.open)}
                             >
-                                <summary className="text-xs text-primary font-medium flex items-center hover:underline mb-1 cursor-pointer">
+                                <summary className="text-xs text-primary font-medium flex items-center hover:underline cursor-pointer">
                                     View Features
                                     <ChevronDown
                                         size={12}
@@ -211,7 +301,7 @@ const CabModel = ({ model, carType, capacity, luggage, handbag, image, pricing, 
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0.25, duration: 0.3 }}
                     >
-                        <p className="text-gray-700 text-xs font-medium mb-1">Select Package:</p>
+                        <p className="text-gray-700 text-xs font-medium">Select Package:</p>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-1.5">
 
                             {hasAirport && (
@@ -286,7 +376,18 @@ const CabModel = ({ model, carType, capacity, luggage, handbag, image, pricing, 
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 0.2, duration: 0.3 }}
                             >
-                                <h4 className="text-xs font-semibold text-gray-700 mb-2">Features:</h4>
+
+                                {/* Wait time statement */}
+                                <motion.p
+                                    className="text-xs text-text mb-2"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ delay: 0.18, duration: 0.3 }}
+                                >
+                                    Wait time for Airport: <span className="font-semibold text-primary">{exArrival}</span> on Arrival, <span className="font-semibold text-primary">{exDeparture}</span> on Departure
+                                </motion.p>
+
+                                <h4 className="text-xs font-semibold text-gray-700">Features:</h4>
                                 <div className="space-x-5 flex flex-wrap">
                                     {features.map((feature, idx) => (
                                         <motion.div
